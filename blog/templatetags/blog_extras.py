@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django import template
+from django.utils.html import escape
+from django.utils.safestring import mark_safe
 user_model = get_user_model()
 
 register = template.Library()
@@ -15,4 +17,12 @@ def author_details(author):
     else:
         name = f"{author.username}"
 
-    return name
+    if author.email:
+        email = escape(author.email)
+        prefix = f'<a href="mailto:{email}">'
+        suffix = "</a>"
+    else:
+        prefix = ""
+        suffix = ""
+
+    return mark_safe(f"{prefix}{name}{suffix}")
