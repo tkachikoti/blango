@@ -8,9 +8,10 @@
     {% endcol %}
 {% endrow %}
 {% row %}
-    <div class="col">
+    {% col %}
         {{ post.content|safe }}
-    </div>
+    {% endcol %}
+    {% include "blog/post-comments.html" %}
 {% endrow %}
 {% row %}
     {% col %}
